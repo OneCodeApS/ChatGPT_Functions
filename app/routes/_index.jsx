@@ -71,12 +71,19 @@ export default function Chat() {
 
   return (
     <div>
+      {loading && <div className='loader'></div>}
       <Form method='post' onSubmit={handleSubmit}>
         <textarea name='text'></textarea>
         <button type='submit' name='_action' value="textButton35">Get ChatGPT Answer</button>
       </Form>
-      {loading && <div className='loader'></div>}
-
+      {data?.choices?.map((d) => {
+        return <p key={d.index}>{d.message.content}</p>
+      })}
+      <Form method='post' onSubmit={handleSubmit}>
+        <textarea name='text'></textarea>
+        <button type='submit' name='_action' value="imageButton">Get ChatGPT Image</button>
+      </Form>
+      {data && <img src={data[0]?.url} alt='image' />}
     </div>
   );
 }
